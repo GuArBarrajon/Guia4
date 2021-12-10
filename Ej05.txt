@@ -1,0 +1,46 @@
+Ej05
+Descripción: Encuentra los errores del siguiente código.
+Autor: Gustavo Barrajón
+Modificó:
+
+#include<stdio.h>
+void escribe(struct fecha f);
+int main()
+{ 
+    struct fecha
+    {
+        int dia;
+        int mes;
+        int anyo;             Declaracion de estructura dentro del main
+        char mes[];           Tengo dos variables con el mismo nombre
+    }ff;
+    ff = {1,1,2000,"ENERO"};  No se puede asignar una variable char con igual
+    escribe(ff);
+    return 1;                
+}
+
+___________________________________________________________________________________
+Corrección:
+
+#include<stdio.h>
+
+Declaracion de estructura fuera del main
+struct fecha
+    {
+        int dia;
+        int mes;
+        int anyo;                          
+        char mesLetras[];   Cambio de nombre
+    }ff;
+
+void escribe(struct fecha f);
+
+int main()
+{
+    ff.dia = 1;
+    ff.mes = 1;
+    ff.anyo = 2000;
+    strcpy(ff.mesLetras, "ENERO");   Asignación con la función string copy
+    escribe(ff);
+    return 1;
+}
